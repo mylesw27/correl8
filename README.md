@@ -20,28 +20,30 @@ The app consists of 3 models: Users, Settings and Responses. Users and Settings 
 
 ## RESTful Routing Chart
 
-| VERB   | URL            | CRUD    | DESCRIPTION                                        | VIEW        |
-|:------ |:-------------- |:------- |:-------------------------------------------------- |:----------- |
-| GET    | /              | Read    | Landing Page                                       | Home        |
-|        |                |         |                                                    |             |
-|        |                |         |                                                    |             |
-| POST   | /users         | Create  | Add user data to db                                |             |
-| GET    | /users/new     | Read    | Display signup form                                | Signup Form |
-| GET    | /users/login   | Read    | Display login form                                 | Login Form  |
-| POST   | /users/login   | Read    | Checks user credentials against db                 |             |
-| GET    | /users/login   | Read    | Logout user by clearing cookies                    |             |
-| GET    | /users/profile | Read    | Display user data                                  | Profile     |
-|        |                |         |                                                    |             |
-| GET    | /settings      | Read    | Displays current user settings                     | Settings    |
-| POST   | /settings      | Create  | Defines users' settings/ daily habits during setup |             |
-| PUT    | /settings      | Update  | Updates a users' settings                          |             |
-|        |                |         |                                                    |             |
-| GET    | /habits        | Read    | Displays past entries                              | Past habits |
-| GET    | /habits/new    | Read    | Display the current day's form                     | Habit Form  |
-| POST   | /habits        | Create  | Enters current day's form to the db                |             |
-| GET    | /habits/:id    | Read    | Displays habits related to a specific day          | Past entry  |
-| PUT    | /habits/:id    | Update  | Update an existing record of a day's entries       |             |
-| DELETE | /habits        | Destroy | Deletes a previous entry                           |             |
+| VERB   | URL             | CRUD    | DESCRIPTION                                  | VIEW        |
+|:------ |:--------------- |:------- |:-------------------------------------------- |:----------- |
+| GET    | /               | Read    | Landing Page                                 | Home        |
+|        |                 |         |                                              |             |
+|        |                 |         |                                              |             |
+| POST   | /users          | Create  | Add user data to db                          |             |
+| GET    | /users/new      | Read    | Display signup form                          | Signup Form |
+| GET    | /users/login    | Read    | Display login form                           | Login Form  |
+| POST   | /users/login    | Read    | Checks user credentials against db           |             |
+| GET    | /users/login    | Read    | Logout user by clearing cookies              |             |
+| GET    | /users/profile  | Read    | Display user data                            | Profile     |
+| GET    | /users/settings | Read    | Display users settings                       |             |
+| PUT    | /users          | Update  | Update user settings                         |             |
+|        |                 |         |                                              |             |
+| GET    | /habits         | Read    | Displays current user settings               | Settings    |
+| POST   | /habits         | Create  | Defines users' daily habits during setup     |             |
+| PUT    | /habits         | Update  | Updates a users' habits                      |             |
+|        |                 |         |                                              |             |
+| GET    | /responses      | Read    | Displays past entries                        | Past habits |
+| GET    | /responses/new  | Read    | Display the current day's form               | Habit Form  |
+| POST   | /responses      | Create  | Enters current day's form to the db          |             |
+| GET    | /responses/:id  | Read    | Displays responses related to a specific day | Past entry  |
+| PUT    | /responses/:id  | Update  | Update an existing record of a day's entries |             |
+| DELETE | /responses      | Destroy | Deletes a previous entry                     |             |
 
 
 ## Wireframes
@@ -49,10 +51,11 @@ The app consists of 3 models: Users, Settings and Responses. Users and Settings 
 ![users/new](./users_new.png)
 ![users/login](./users_login.png)
 ![users/profile](./users_profile.png)
-![settings](./settings.png)
+![users/settings](./users/settings.png)
 ![habits](./habits.png)
-![habits/new](./habits_new.png) 
-![habits/:id](./habits_id.png)
+![responses](./responses.png)
+![habits/new](./responses_new.png) 
+![habits/:id](./responses_id.png)
 
 ## User Stories
 As a user, I want to be able to store daily activity data based on my mood and habits. \

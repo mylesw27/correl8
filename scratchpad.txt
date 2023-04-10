@@ -3,10 +3,19 @@ USER MODEL
 email: string -- unique in the database
 password: string -- hashed in the database
 
-sequelize model:create --name user --attributes email:string,password:string
+sequelize model:create --name user --attributes email:string,password:string,username:string,zipcode:integer
+
+sequelize model:create --name habit --attributes habit_name:string,userId:integer
+
+sequelize model:create --name habresponse --attributes userId:integer,date:dateonly,habitId:integer,response:boolean,dailyId:integer
+
+sequelize model:create --name daily --attributes userId:integer,date:dateonly,rating:integer,mood_AM:string,mood_PM:string,stress:string,activity:string,diet:string,woke_up:time,bed:time,water:integer,weather_conditions:string,weather_high:integer,weather_low:integer,affirmations:text,notes:text
+
+
 
 # if you want to add more columns for p2:
 1. sequelize db:migrate:undo:all -- remove user table in db
 2. options:
     a. edit BOTH the user model and user migration
     b. rm models/user.js migrations/<the user migration>.js and then rerun new model create command
+

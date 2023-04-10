@@ -59,6 +59,9 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', require('./controllers/users.js'))
+app.use('/habits', require('./controllers/habits.js'))
+app.use('/responses', require('./controllers/responses.js'))
+
 
 // listen on a port
 app.listen(PORT, () => {

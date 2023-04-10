@@ -5,12 +5,12 @@ This habit tracker allows you to store information about a user's daily activiti
 
 ### Mapbox 
 Forward geocoding used to retrieve latitude and longitude of a user's zip code. These coordinates will feed the Open-Mateo API.
-![Mapbox Proof of Concept](./mapboxproof.png)\
+![Mapbox Proof of Concept](./img/mapboxproof.png)\
 
 
 ### Open-Mateo
 Sending the user's latitude and longitude returns the current weather forecast. This will be used to provide weather data as a supplement to daily responses.  \
-![Open-Mateo Proof of Concept](./openmateoproof.png)\
+![Open-Mateo Proof of Concept](./img/openmateoproof.png)\
 
 
 ## Entity Relational Diagram
@@ -47,15 +47,15 @@ The app consists of 3 models: Users, Settings and Responses. Users and Settings 
 
 
 ## Wireframes
-![landing page](./landingpage.png)
-![users/new](./users_new.png)
-![users/login](./users_login.png)
-![users/profile](./users_profile.png)
-![users/settings](./users/settings.png)
-![habits](./habits.png)
-![responses](./responses.png)
-![habits/new](./responses_new.png) 
-![habits/:id](./responses_id.png)
+![landing page](./img/landingpage.png)
+![users/new](./img/users_new.png)
+![users/login](./img/users_login.png)
+![users/profile](./img/users_profile.png)
+![users/settings](./img/users/settings.png)
+![habits](./img/habits.png)
+![responses](./img/responses.png)
+![habits/new](./img/responses_new.png) 
+![habits/:id](./img/responses_id.png)
 
 ## User Stories
 As a user, I want to be able to store daily activity data based on my mood and habits. \

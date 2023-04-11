@@ -3,7 +3,8 @@
 <h1>Show a past response</h1>
 <p><%= foundDaily.date %></p>
 
-<form method="POST" action="/responses/?_method=PUT">
+<form method="POST" action="/responses/<%=foundDaily.id%>?_method=PUT">
+    <input type="integer" value="<%= foundDaily.id %>" name="id" hidden>
     <!-- date -->
     <input type="text" value="<%= foundDaily.date %>" name="date" id="date" hidden>
 
@@ -65,8 +66,6 @@
     <!-- Habit Responses -->
     <ul>
         <% habits.forEach((habit, i) => { %>
-            <% console.log(habit.id) %>
-            <% console.log(habit.habresponses[0].response) %>
             <li>
                 <% if (habit.habresponses[0].response) { %>
                     <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit_<%=habit.id%>" checked>

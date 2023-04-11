@@ -25,10 +25,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       stress: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       activity: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       diet: {
         type: Sequelize.STRING

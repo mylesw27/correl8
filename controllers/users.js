@@ -4,6 +4,9 @@ const router = express.Router()
 const db = require('../models')
 const bcrypt = require('bcrypt')
 const cryptoJs = require('crypto-js')
+const methodOverride = require('method-override');
+
+router.use(methodOverride('_method'));
 
 // GET /users/new -- show route for a form that creates a new user (sign up for the app)
 router.get('/new', (req, res) => {
@@ -99,6 +102,25 @@ router.get('/profile', (req, res) => {
     } else {
         // if they are allowed to be here, show them their profile
         res.render('users/profile.ejs')
+    }
+})
+
+router.put('/profile', async (req, res) => {
+    try{
+        const foundUser = await db.user.findOne({
+            where: {
+                id: res.locals.user.id
+            }
+        })
+        await foundUser.set({
+            username: req.body.username,
+            zipcode: req.body.zipcode
+        })
+        await foundUser.save()
+        await console.log(foundUser)
+        res.redirect('/users/profile')  
+    } catch(error) {
+        console.log(error)
     }
 })
 

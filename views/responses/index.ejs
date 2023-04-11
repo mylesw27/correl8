@@ -2,4 +2,15 @@
 
 <h1>Show all responses</h1>
 
+<p><a href='/responses/new'>Log new response</a></p>
+<p><a href='/responses/show'>View a past response</a></p>
+
+<ul>
+    <% responses.forEach(response => { %>
+        <li><a href="/responses/<%= response.id %>"><%= response.date %></a>
+        </li>
+    <% }) %>
+</ul>
+
+
 <%- include("../partials/footer.ejs") %>

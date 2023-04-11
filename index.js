@@ -4,6 +4,8 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const cryptoJs = require('crypto-js')
 const db = require('./models')
+const methodOverride = require('method-override');
+
 
 
 // app config
@@ -12,6 +14,7 @@ const PORT = process.env.PORT || 8000
 app.set('view engine', 'ejs')
 
 // middlewares
+app.use(methodOverride('_method'));
 // parse html from request bodies
 app.use(express.urlencoded({ extended: false }))
 // tells expres to parse incoming cookies sent from the browser
@@ -54,7 +57,7 @@ app.use(async (req, res, next) => {
 
 // routes and controllers
 app.get('/', (req, res) => {
-    console.log(res.locals)
+    // console.log(res.locals)
     res.render('index.ejs')
 })
 

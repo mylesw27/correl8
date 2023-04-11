@@ -1,5 +1,88 @@
 <%- include("../partials/header.ejs") %>
 
 <h1>Create new response</h1>
+<p><%= todaysDate %></p>
+
+<form method="post" action="/responses">
+    <!-- date -->
+    <input type="text" value="<%= todaysDate %>" name="date" id="date" hidden>
+
+    <!-- rating -->
+    <label for="rating" class="form-label">How was your day?</label>
+    <input type="range" class="form-range" min="1" max="5" id="rating" name="rating">
+
+    <!-- mood_AM -->
+    <label for="mood_AM" class="form-label">Morning Mood</label>
+    <select class="form-select" name="mood_AM">
+        <option selected></option>
+        <option value="Positive">Positive</option>
+        <option value="Neutral">Neutral</option>
+        <option value="Negative">Negative</option>
+    </select>
+
+    <!-- mood_PM -->
+    <label for="mood_PM" class="form-label">Evening Mood</label>
+    <select class="form-select" name="mood_PM">
+        <option selected></option>
+        <option value="Positive">Positive</option>
+        <option value="Neutral">Neutral</option>
+        <option value="Negative">Negative</option>
+    </select>
+ 
+    <!-- stress -->
+    <label for="stress" class="form-label">Stress Level</label>
+    <input type="range" class="form-range" min="1" max="10" id="stress" name="stress">
+
+    <!-- activity -->
+    <label for="activity" class="form-label">Activity Level</label>
+    <input type="range" class="form-range" min="1" max="10" id="activity" name="activity">
+
+    <!-- diet -->
+    <label for="diet" class="form-label">Diet</label>
+    <select class="form-select" name="diet">
+        <option selected></option>
+        <option value="Healthy">Healthy</option>
+        <option value="Fair">Fair</option>
+        <option value="Poor">Poor</option>
+    </select>
+
+    <!-- woke_up -->
+    <label for="woke_up" class="form-label">Woke up at:</label>
+    <input type="time" id="woke_up" name="woke_up" value="07:00">
+    
+    <!-- bed -->
+    <label for="bed" class="form-label">Went to bed at:</label>
+    <input type="time" id="bed" name="bed" value="21:00">
+
+    <!-- water -->
+    <label for="water" class="form-label">Water Intake:</label>
+    <input type="integer" id="water" name="water" value="0">
+
+    <!-- weather_conditions -->
+
+    <!-- weather_high -->
+
+    <!-- weather_low -->
+
+    <!-- Habit Responses -->
+    <ul>
+        <% habits.forEach((habit, i) => { %>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit<%=habit.id%>">
+                <label class="btn btn-outline-primary" for="btn-check-outlined<%= i %>"><%= habit.habit_name %></label>
+            </li>
+        <% }) %>
+    </ul>
+
+    <!-- affirmations -->
+    <label for="affirmations" class="form-label">Today's Affirmations:</label>
+    <textarea name="affirmations" id="affirmations"></textarea>
+
+    <!-- notes  -->
+    <label for="notes" class="form-label">Today's Notes:</label>
+    <textarea name="notes" id="notes"></textarea>
+
+    <button type="sumbit">Submit</button>
+</form>
 
 <%- include("../partials/footer.ejs") %>

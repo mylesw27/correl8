@@ -1,7 +1,28 @@
 <%- include('../partials/header.ejs') %>
 
-<h1>Welcome to your profile, <%= user.email %></h1>
+<h1>Welcome to your profile, <%= user.username %></h1>
 
-<p>I hope you enjoy using our app!</p>
+<p>update settings below</p>
+
+<form method="POST" action="/users/profile/?_method=PUT">
+    <div class="form-floating col-md-3">
+        <input type="email" class="form-control" name="email" id="email" value="<%= user.email %>" required />
+        <label for="email">Email:</label>
+    </div>
+
+    <div class="form-floating col-md-3">
+        <input type="text" class="form-control" name="username" id="username" value="<%= user.username %>" />
+        <label for="username">Preferred Name:</label>
+    </div>
+
+    <div class="form-floating col-md-3">
+        <input type="zipcode" class="form-control" name="zipcode" id="zipcode" value="<%= user.zipcode %>" />
+        <label for="zipcode">Zip Code:</label>
+    </div>
+    
+    <div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
 
 <%- include('../partials/footer.ejs') %>

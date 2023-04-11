@@ -68,7 +68,7 @@
     <ul>
         <% habits.forEach((habit, i) => { %>
             <li>
-                <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit<%=habit.id%>">
+                <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit_<%=habit.id%>">
                 <label class="btn btn-outline-primary" for="btn-check-outlined<%= i %>"><%= habit.habit_name %></label>
             </li>
         <% }) %>

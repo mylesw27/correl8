@@ -6,9 +6,10 @@ router.get('/', async (req, res) => {
     try {const responses = await db.daily.findAll({
             where: {
                 userId: res.locals.user.id
-            }, //order: ['date', 'DESC']
+            }, order: [
+                ['date', 'DESC']
+            ]
         })
-        await console.log(responses)
         res.render('responses/index.ejs', {responses})
     } catch (error) {
         console.log(error)
@@ -27,8 +28,8 @@ router.get('/new', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    console.log(req.body)
-    const newDay = await db.daily.findOrCreate({
+    // console.log(req.body)
+    const [newDay, created] = await db.daily.findOrCreate({
         where: {
             date: req.body.date,
             userId: res.locals.user.id
@@ -46,11 +47,72 @@ router.post('/', async (req, res) => {
             notes: req.body.notes,
         } 
     })
-    res.render('/responses')
+    const foundHabits = await db.habit.findAll({
+        where: {
+            userId: res.locals.user.id
+        }
+    })
+    const responseArray = Object.entries(req.body)
+
+    let habitArray = []
+    responseArray.forEach((response, i) => {
+        let splitResponse = response[0].split("_")
+        if (splitResponse[0] === "habit" ) {
+            habitArray.push(splitResponse)
+        }
+        
+    })
+    let yesHabits = habitArray.map(habit => Number(habit[1]))
+    
+    foundHabits.forEach( async (taco,i) => {
+        console.log(`Yes habits: ${yesHabits} foundHabitsID: ${taco.id}`)
+        if (yesHabits.includes(taco.id)) {
+            await db.habresponse.findOrCreate({
+                where: {
+                    date: req.body.date,
+                    userId: res.locals.user.id,
+                    habitId: taco.id,
+                }, defaults: {
+                    response: true,
+                    dailyId: newDay.id
+                }
+            })
+        } else {
+            await db.habresponse.findOrCreate({
+                where: {
+                    date: req.body.date,
+                    userId: res.locals.user.id,
+                    habitId: taco.id,
+                }, defaults: {
+                    response: false,
+                    dailyId: newDay.id
+                }
+            })
+
+        }
+    })
+    
+    res.redirect ('/responses')
 })
 
-router.get('/:id', (req, res) => {
-    res.render('responses/show.ejs')
+router.get('/:id', async (req, res) => {
+    const foundDaily = await db.daily.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    const habits = await db.habit.findAll({
+        where: {
+            userId: res.locals.user.id
+        }
+    })
+    const foundHabresponse = await db.habresponse.findAll({
+        where: {
+            dailyId: req.params.id
+        }
+    })
+    console.log(foundDaily, habits, foundHabresponse)
+    res.render('responses/show.ejs', {foundDaily, habits, foundHabresponse})
 })
 
 router.put('/:id', (req, res) => {

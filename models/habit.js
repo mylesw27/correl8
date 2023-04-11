@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.habit.belongsTo(models.user)
+      models.habit.hasMany(models.habresponse)
     }
   }
   habit.init({

@@ -35,8 +35,8 @@ router.post('/', async (req, res) => {
             userId: res.locals.user.id
         }, defaults: {
             rating: req.body.rating,
-            mood_am: req.body.mood_am,
-            mood_pm: req.body.mood_pm,
+            mood_AM: req.body.mood_am,
+            mood_PM: req.body.mood_pm,
             stress: req.body.stress,
             activity: req.body.activity,
             diet: req.body.diet,
@@ -103,16 +103,17 @@ router.get('/:id', async (req, res) => {
     })
     const habits = await db.habit.findAll({
         where: {
-            userId: res.locals.user.id
-        }
+            userId: res.locals.user.id,
+        }, 
+        include: [{
+            model: db.habresponse,
+            where: {
+                dailyId: req.params.id
+            }
+        }]
     })
-    const foundHabresponse = await db.habresponse.findAll({
-        where: {
-            dailyId: req.params.id
-        }
-    })
-    console.log(foundDaily, habits, foundHabresponse)
-    res.render('responses/show.ejs', {foundDaily, habits, foundHabresponse})
+    console.log(habits.habresponse)
+    res.render('responses/show.ejs', {foundDaily, habits})
 })
 
 router.put('/:id', (req, res) => {

@@ -3,17 +3,17 @@
 <h1>Show a past response</h1>
 <p><%= foundDaily.date %></p>
 
-<form method="post" action="/responses">
+<form method="POST" action="/responses/?_method=PUT">
     <!-- date -->
     <input type="text" value="<%= foundDaily.date %>" name="date" id="date" hidden>
 
     <!-- rating -->
     <label for="rating" class="form-label">How was your day?</label>
-    <input type="range" class="form-range" min="1" max="5" id="rating" name="rating">
+    <input type="range" class="form-range" min="1" max="5" id="rating" name="rating" value="<%=foundDaily.rating%>">
 
     <!-- mood_AM -->
     <label for="mood_AM" class="form-label">Morning Mood</label>
-    <select class="form-select" name="mood_AM">
+    <select class="form-select" name="mood_am" value="<%foundDaily.mood_AM%>">
         <option selected></option>
         <option value="Positive">Positive</option>
         <option value="Neutral">Neutral</option>
@@ -22,8 +22,7 @@
 
     <!-- mood_PM -->
     <label for="mood_PM" class="form-label">Evening Mood</label>
-    <select class="form-select" name="mood_PM">
-        <option selected></option>
+    <select class="form-select" name="mood_pm" value="<%foundDaily.mood_PM%>">
         <option value="Positive">Positive</option>
         <option value="Neutral">Neutral</option>
         <option value="Negative">Negative</option>
@@ -31,16 +30,15 @@
  
     <!-- stress -->
     <label for="stress" class="form-label">Stress Level</label>
-    <input type="range" class="form-range" min="1" max="10" id="stress" name="stress">
+    <input type="range" class="form-range" min="1" max="10" id="stress" name="stress" value="<%foundDaily.stress%>">
 
     <!-- activity -->
     <label for="activity" class="form-label">Activity Level</label>
-    <input type="range" class="form-range" min="1" max="10" id="activity" name="activity">
+    <input type="range" class="form-range" min="1" max="10" id="activity" name="activity" value="<%foundDaily.stress%>">
 
     <!-- diet -->
     <label for="diet" class="form-label">Diet</label>
-    <select class="form-select" name="diet">
-        <option selected></option>
+    <select class="form-select" name="diet" value="<%foundDaily.diet%>">
         <option value="Healthy">Healthy</option>
         <option value="Fair">Fair</option>
         <option value="Poor">Poor</option>
@@ -67,9 +65,16 @@
     <!-- Habit Responses -->
     <ul>
         <% habits.forEach((habit, i) => { %>
+            <% console.log(habit.id) %>
+            <% console.log(habit.habresponses[0].response) %>
             <li>
-                <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit_<%=habit.id%>">
-                <label class="btn btn-outline-primary" for="btn-check-outlined<%= i %>"><%= habit.habit_name %></label>
+                <% if (habit.habresponses[0].response) { %>
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit_<%=habit.id%>" checked>
+                    <label class="btn btn-outline-primary" for="btn-check-outlined<%= i %>"><%= habit.habit_name %></label>
+                <%} else { %>  
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit_<%=habit.id%>" >
+                    <label class="btn btn-outline-primary" for="btn-check-outlined<%= i %>"><%= habit.habit_name %></label>
+                <% } %>
             </li>
         <% }) %>
     </ul>

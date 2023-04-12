@@ -70,6 +70,9 @@ router.post('/', async (req, res) => {
             woke_up: req.body.woke_up,
             bed: req.body.bed,
             water: req.body.water,
+            weather_conditions: req.body.weather_conditions,
+            weather_high: req.body.weather_high,
+            weather_low: req.body.weather_low,
             affirmations: req.body.affirmations,
             notes: req.body.notes,
         } 

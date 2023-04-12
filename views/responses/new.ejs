@@ -4,15 +4,19 @@
 <h2>Today's Weather Conditions:</h2>
 <p>High: <%= weatherData.temperature_2m_max[0] %></p>
 <p>Low: <%= weatherData.temperature_2m_min[0] %></p>
+
 <form method="post" action="/responses">
     <!-- date -->
     <input type="date" value="<%= todaysDate %>" name="date" id="date" >
 
     <!-- weather_conditions -->
+    <% console.log(weatherData.weathercode[0].toString()) %>
+    
 
     <!-- weather_high -->
-
+    <input type="integer" value="<%= Math.round(weatherData.temperature_2m_max[0]) %>" name="weather_high" hidden>
     <!-- weather_low -->
+    <input type="integer" value="<%= Math.round(weatherData.temperature_2m_min[0]) %>" name="weather_low" hidden>
 
     <!-- rating -->
     <label for="rating" class="form-label">How was your day?</label>

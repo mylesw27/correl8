@@ -118,12 +118,13 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const updateDay = await db.daily.findOne({
+        const foundDay = await db.daily.findOne({
             where: {
                 id: req.params.id,
+                userId: res.locals.user.id
             }
         })
-        updateDay.update({
+        await foundDay.update({
             rating: req.body.rating,
             mood_AM: req.body.mood_am,
             mood_PM: req.body.mood_pm,
@@ -136,8 +137,7 @@ router.put('/:id', async (req, res) => {
             affirmations: req.body.affirmations,
             notes: req.body.notes,
         })
-        updateDay.save()
-        await console.log(updateDay.rating)
+        // await foundDay.save()
     //     const foundHabresponse = await db.user.findOrCreate({
     //         where: {
     //             dailyId: req.params.id

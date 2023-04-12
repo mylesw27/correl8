@@ -2,7 +2,7 @@
 
 <h1>Show a past response</h1>
 <p><%= foundDaily.date %></p>
-
+<% console.log(foundDaily) %>
 <form method="POST" action="/responses/<%=foundDaily.id%>?_method=PUT">
     <input type="integer" value="<%= foundDaily.id %>" name="id" hidden>
     <!-- date -->
@@ -14,48 +14,81 @@
 
     <!-- mood_AM -->
     <label for="mood_AM" class="form-label">Morning Mood</label>
-    <select class="form-select" name="mood_am" value="<%foundDaily.mood_AM%>">
-        <option selected></option>
-        <option value="Positive">Positive</option>
-        <option value="Neutral">Neutral</option>
-        <option value="Negative">Negative</option>
+    <select class="form-select" name="mood_am" value="<%=foundDaily.mood_AM%>">
+        <option value="Positive"
+        <% if (foundDaily.mood_AM === "Positive") {%>
+        <%= "selected" %>
+        <% } %> 
+        >Positive</option>
+        <option value="Neutral"
+        <% if (foundDaily.mood_AM === "Neutral") {%>
+        <%= "selected" %>
+        <% } %>>Neutral</option>
+        <option value="Negative"
+        <% if (foundDaily.mood_AM === "Negative") {%>
+        <%= "selected" %>
+        <% } %>>Negative</option>
+        >Negative</option>
     </select>
 
     <!-- mood_PM -->
     <label for="mood_PM" class="form-label">Evening Mood</label>
-    <select class="form-select" name="mood_pm" value="<%foundDaily.mood_PM%>">
-        <option value="Positive">Positive</option>
-        <option value="Neutral">Neutral</option>
-        <option value="Negative">Negative</option>
+    <select class="form-select" name="mood_pm" value="<%=foundDaily.mood_PM%>">
+        <option value="Positive"
+        <% if (foundDaily.mood_PM === "Positive") {%>
+        <%= "selected" %>
+        <% } %> 
+        >Positive</option>
+        <option value="Neutral"
+        <% if (foundDaily.mood_PM === "Neutral") {%>
+        <%= "selected" %>
+        <% } %>>Neutral</option>
+        <option value="Negative"
+        <% if (foundDaily.mood_PM === "Negative") {%>
+        <%= "selected" %>
+        <% } %>>Negative</option>
+        >Negative</option>
     </select>
  
     <!-- stress -->
     <label for="stress" class="form-label">Stress Level</label>
-    <input type="range" class="form-range" min="1" max="10" id="stress" name="stress" value="<%foundDaily.stress%>">
+    <input type="range" class="form-range" min="1" max="10" id="stress" name="stress" value="<%=foundDaily.stress%>">
 
     <!-- activity -->
     <label for="activity" class="form-label">Activity Level</label>
-    <input type="range" class="form-range" min="1" max="10" id="activity" name="activity" value="<%foundDaily.stress%>">
+    <input type="range" class="form-range" min="1" max="10" id="activity" name="activity" value="<%=foundDaily.stress%>">
 
     <!-- diet -->
     <label for="diet" class="form-label">Diet</label>
-    <select class="form-select" name="diet" value="<%foundDaily.diet%>">
-        <option value="Healthy">Healthy</option>
-        <option value="Fair">Fair</option>
-        <option value="Poor">Poor</option>
+    <select class="form-select" name="diet" value="<%=foundDaily.diet%>">
+        <option value="Healthy"
+        <% if (foundDaily.diet === "Healthy") {%>
+            <%= "selected" %>
+        <% } %> 
+        >Healthy</option>
+        <option value="Fair"
+        <% if (foundDaily.diet === "Fair") {%>
+            <%= "selected" %>
+        <% } %> 
+        >Fair</option>
+        <option value="Poor"
+        <% if (foundDaily.diet === "Poor") {%>
+            <%= "selected" %>
+        <% } %> 
+        >Poor</option>
     </select>
 
     <!-- woke_up -->
     <label for="woke_up" class="form-label">Woke up at:</label>
-    <input type="time" id="woke_up" name="woke_up" value="07:00">
+    <input type="time" id="woke_up" name="woke_up" value="<%=foundDaily.woke_up%>">
     
     <!-- bed -->
     <label for="bed" class="form-label">Went to bed at:</label>
-    <input type="time" id="bed" name="bed" value="21:00">
+    <input type="time" id="bed" name="bed" value="<%=foundDaily.bed%>">
 
     <!-- water -->
     <label for="water" class="form-label">Water Intake:</label>
-    <input type="integer" id="water" name="water" value="0">
+    <input type="integer" id="water" name="water" value="<%=foundDaily.water%>">
 
     <!-- weather_conditions -->
 
@@ -80,14 +113,15 @@
 
     <!-- affirmations -->
     <label for="affirmations" class="form-label">Today's Affirmations:</label>
-    <textarea name="affirmations" id="affirmations"></textarea>
+    <textarea name="affirmations" id="affirmations"><%=foundDaily.affirmations%></textarea>
 
     <!-- notes  -->
     <label for="notes" class="form-label">Today's Notes:</label>
-    <textarea name="notes" id="notes"></textarea>
+    <textarea name="notes" id="notes"><%=foundDaily.notes%></textarea>
 
     <button type="sumbit">Submit</button>
 </form>
+<form method="POST" 
 
 
 <%- include("../partials/footer.ejs") %>

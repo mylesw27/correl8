@@ -121,7 +121,10 @@
 
     <button type="sumbit">Submit</button>
 </form>
-<form method="POST" 
+<form method="POST" action="/responses/?_method=DELETE">
+    <input type="integer" value="<%= foundDaily.id %>" name="id" hidden>
+    <button type="submit">Delete Entry</button>
+</form>
 
 
 <%- include("../partials/footer.ejs") %>

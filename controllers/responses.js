@@ -28,7 +28,6 @@ router.get('/new', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    // console.log(req.body)
     const [newDay, created] = await db.daily.findOrCreate({
         where: {
             date: req.body.date,
@@ -65,7 +64,6 @@ router.post('/', async (req, res) => {
     let yesHabits = habitArray.map(habit => Number(habit[1]))
     
     foundHabits.forEach( async (taco,i) => {
-        console.log(`Yes habits: ${yesHabits} foundHabitsID: ${taco.id}`)
         if (yesHabits.includes(taco.id)) {
             await db.habresponse.findOrCreate({
                 where: {
@@ -137,56 +135,45 @@ router.put('/:id', async (req, res) => {
             affirmations: req.body.affirmations,
             notes: req.body.notes,
         })
-        // await foundDay.save()
-    //     const foundHabresponse = await db.user.findOrCreate({
-    //         where: {
-    //             dailyId: req.params.id
-    //         }
-    //     })
-    //     const foundHabits = await db.habit.findAll({
-    //     where: {
-    //         userId: res.locals.user.id
-    //     }
-    // })
-    // const responseArray = Object.entries(req.body)
+        const foundHabits = await db.habit.findAll({
+        where: {
+            userId: res.locals.user.id
+        }
+        })
+        const responseArray = Object.entries(req.body)
 
-    // let habitArray = []
-    // responseArray.forEach((response, i) => {
-    //     let splitResponse = response[0].split("_")
-    //     if (splitResponse[0] === "habit" ) {
-    //         habitArray.push(splitResponse)
-    //     }
+        let habitArray = []
+        responseArray.forEach((response, i) => {
+            let splitResponse = response[0].split("_")
+            if (splitResponse[0] === "habit" ) {
+                habitArray.push(splitResponse)
+            }
+            
+        })
+        let yesHabits = habitArray.map(habit => Number(habit[1]))
         
-    // })
-    // let yesHabits = habitArray.map(habit => Number(habit[1]))
-    
-    // foundHabits.forEach( async (taco,i) => {
-    //     console.log(`Yes habits: ${yesHabits} foundHabitsID: ${taco.id}`)
-    //     if (yesHabits.includes(taco.id)) {
-    //         await db.habresponse.findOrCreate({
-    //             where: {
-    //                 date: req.body.date,
-    //                 userId: res.locals.user.id,
-    //                 habitId: taco.id,
-    //             }, defaults: {
-    //                 response: true,
-    //                 dailyId: newDay.id
-    //             }
-    //         })
-    //     } else {
-    //         await db.habresponse.findOrCreate({
-    //             where: {
-    //                 date: req.body.date,
-    //                 userId: res.locals.user.id,
-    //                 habitId: taco.id,
-    //             }, defaults: {
-    //                 response: false,
-    //                 dailyId: newDay.id
-    //             }
-    //         })
+        foundHabits.forEach( async (taco,i) => {
+            console.log(`Yes habits: ${yesHabits} foundHabitsID: ${taco.id}`)
+            const findHabresponse = await db.habresponse.findOrCreate({
+                where: {
+                    userId: res.locals.user.id,
+                    dailyId: foundDay.id,
+                    habitId: taco.id,
+                    date: req.body.date
+                }
+            })
+            console.log(findHabresponse)
+            if (yesHabits.includes(taco.id)) {
+                findHabresponse[0].update({
+                    response: true,
+                })
+            } else {
+                findHabresponse[0].update({
+                    response: false,
+                })
 
-    //     }
-    // })
+            }
+        })
     } catch(error) {
         console.log(error)
     }
@@ -194,8 +181,18 @@ router.put('/:id', async (req, res) => {
     res.redirect('/responses')
 })
 
-router.delete('/', (req, res) => {
-    res.send('bye bye')
+router.delete('/', async (req, res) => {
+    try { 
+        const destroyResponse = await db.daily.destroy({
+        where: {
+            id: req.body.id,
+            userId: res.locals.user.id
+        }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+    res.redirect('/responses')
 })
 
 module.exports = router

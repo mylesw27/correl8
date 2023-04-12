@@ -1,6 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const db = require('../models')
+const axios = require('axios'); 
 
 router.get('/', async (req, res) => {
     try {const responses = await db.daily.findAll({
@@ -17,14 +19,40 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/new', async (req, res) => {
-    const habits = await db.habit.findAll({
+    try { 
+        const habits = await db.habit.findAll({
         where: {
             userId: res.locals.user.id
         }
-    })
-    const date = new Date()
-    const todaysDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-    res.render('responses/new.ejs', {habits, todaysDate})
+        })
+        const date = new Date()
+        const month = ('0' + (date.getMonth() + 1)).slice(-2)
+        const todaysDate = `${date.getFullYear()}-${month}-${date.getDate()}`
+        const todaysDateMMDDYYY = `${date.getMonth() + 1}${date.getDate()}${date.getFullYear()}`
+        console.log(todaysDate)
+        // Weather data - 2 APIs Mapbox (for long&lat) & Open-Mateo (for weather)
+        // First, get user's zip code
+        const zip = res.locals.user.zipcode
+        // send zip code to Mabpox
+        const mapbox = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?access_token=${process.env.MAP_KEY}`
+        const mapboxResponse = await axios.get(mapbox)
+        // pull out longitude & latitude
+        const long = mapboxResponse.data.features[0].center[0].toFixed(3)
+        const lat = mapboxResponse.data.features[0].center[1].toFixed(3)
+        console.log(long, lat)
+        // send long & lat to Open-Mateo for weather JSON
+        const openMateo = `https://api.open-meteo.com/v1/forecast?latitude=${lat}8&longitude=${long}&daily=weathercode&daily=temperature_2m_max&daily=temperature_2m_min&daily=apparent_temperature_max&daily=apparent_temperature_min&daily=sunrise&daily=sunset&daily=precipitation_sum&daily=precipitation_hours&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timeformat=iso8601&past_days=0&forecast_days=7&start_date=${todaysDate}&end_date=${todaysDate}&timezone=America%2FLos_Angeles`
+        const weatherData = await axios.get(openMateo)
+        console.log(weatherData)
+        res.render('responses/new.ejs', {
+            habits, 
+            todaysDate, 
+            todaysDateMMDDYYY, 
+            weatherData: weatherData.data.daily
+        })
+    } catch(error) {
+        console.log(error)
+    }
 })
 
 router.post('/', async (req, res) => {

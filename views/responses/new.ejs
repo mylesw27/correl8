@@ -1,11 +1,18 @@
 <%- include("../partials/header.ejs") %>
 
 <h1>Create new response</h1>
-<p><%= todaysDate %></p>
-
+<h2>Today's Weather Conditions:</h2>
+<p>High: <%= weatherData.temperature_2m_max[0] %></p>
+<p>Low: <%= weatherData.temperature_2m_min[0] %></p>
 <form method="post" action="/responses">
     <!-- date -->
-    <input type="text" value="<%= todaysDate %>" name="date" id="date" hidden>
+    <input type="date" value="<%= todaysDate %>" name="date" id="date" >
+
+    <!-- weather_conditions -->
+
+    <!-- weather_high -->
+
+    <!-- weather_low -->
 
     <!-- rating -->
     <label for="rating" class="form-label">How was your day?</label>
@@ -58,11 +65,6 @@
     <label for="water" class="form-label">Water Intake:</label>
     <input type="integer" id="water" name="water" value="0">
 
-    <!-- weather_conditions -->
-
-    <!-- weather_high -->
-
-    <!-- weather_low -->
 
     <!-- Habit Responses -->
     <ul>

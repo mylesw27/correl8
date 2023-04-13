@@ -15,8 +15,8 @@
 <div class="justify-content-start container-sm column">
     <div class="row gx-5">
         <% habits.forEach(habit => { %>
-            <div class="card m-5">
-                <div class="row align-items-start">
+            <div class="card shadow-sm m-3">
+                <div class="row align-items-center">
                     <div class="col-1 align-self-center">
                         <form method="post" action="/habits/?_method=DELETE">
                             <input typ="integer" name="habitId" value="<%= habit.id %>" hidden>
@@ -30,10 +30,14 @@
                         <div class="card-body">Current Streak</div>
                         <div class="card-body"><%= habit.streak %></div>
                     </div>
-                    <div class="col-6">
-                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="<%=habit.streak%>" aria-valuemin="0" aria-valuemax="7">
-                            <div class="progress-bar" style="width: <%= habit.streak %>%"></div>
-                          </div>
+                    <div class="col-6 align-items-center"> 
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="<%=habit.week%>" aria-valuemin="0" aria-valuemax="30" style="height: 30px">
+                            <div class="progress-bar" style="width: <%= ((habit.week)/7)*100 %>%"><%= habit.month %> times this week</div>
+                        </div>
+                        <div style="height: 20px"></div>
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="<%=habit.month%>" aria-valuemin="0" aria-valuemax="30" style="height: 30px">
+                            <div class="progress-bar" style="width: <%= ((habit.month)/30)*100 %>%"><%= habit.month %> times this month</div>
+                        </div>
                     </div>
                 </div>
             </div>

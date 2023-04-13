@@ -17,7 +17,6 @@ module.exports.calculateStreak = async (taco, todaysDate) => {
             return dateCount.dateCountInt(response.date)
         })
         console.log(responseDateArray)
-        let nextUp = responseDateArray[1]
         let streak = 0
         const todaysDateCount = dateCount.dateCountInt(todaysDate)
         console.log(todaysDateCount, responseDateArray[0])
@@ -29,7 +28,6 @@ module.exports.calculateStreak = async (taco, todaysDate) => {
                 streak ++
             } 
         })
-        console.log(streak)
         // update habit.current_streak with that amount 
         const findHabit = await db.habit.findOne ({
             where: {
@@ -44,7 +42,7 @@ module.exports.calculateStreak = async (taco, todaysDate) => {
     }
 }
 
-module.exports.calculateMonth = async (taco, todaysDate) => {
+module.exports.calculateCounts = async (taco, todaysDate) => {
     try {
         // Get all habit responses that are true
         const findHabresponse = await db.habresponse.findAll({
@@ -64,13 +62,24 @@ module.exports.calculateMonth = async (taco, todaysDate) => {
 
         // for each function that calculates each true habit if it is > (today -30) if so, increment
         let monthCount = 0
+        let weekCount = 0
         responseDateArray.forEach((habitDate) => {
-            if (habitDate >= todaysDateCount -30) {
+            if (habitDate > todaysDateCount -7) {
+                monthCount ++
+                weekCount ++
+                console.log(habitDate, todaysDateCount)
+            } else if (habitDate > todaysDateCount -30) {
                 monthCount ++
             }
         })
+        const findHabit = await db.habit.findOne ({
+            where: {
+                id: taco
+            }
+        })
         await findHabit.update({
-            month: monthCount
+            month: monthCount,
+            week: weekCount
         })
 
         

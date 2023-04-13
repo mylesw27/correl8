@@ -92,13 +92,13 @@ router.post('/', async (req, res) => {
         if (splitResponse[0] === "habit" ) {
             habitArray.push(splitResponse)
         }
-        
+    
     })
     let yesHabits = habitArray.map(habit => Number(habit[1]))
     
     foundHabits.forEach( async (taco,i) => {
         streak.calculateStreak(taco.id, todaysDate)
-        streak.calculateMonth(taco.id, todaysDate)
+        streak.calculateCounts(taco.id, todaysDate)
         if (yesHabits.includes(taco.id)) {
             await db.habresponse.findOrCreate({
                 where: {

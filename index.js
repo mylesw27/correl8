@@ -16,6 +16,7 @@ app.set('view engine', 'ejs')
 
 // middlewares
 app.use(methodOverride('_method'));
+app.use(express.static("public"))
 // parse html from request bodies
 app.use(express.urlencoded({ extended: false }))
 // tells expres to parse incoming cookies sent from the browser

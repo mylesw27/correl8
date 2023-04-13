@@ -5,7 +5,10 @@ password: string -- hashed in the database
 
 sequelize model:create --name user --attributes email:string,password:string,username:string,zipcode:integer
 
-sequelize model:create --name habit --attributes habit_name:string,userId:integer
+sequelize model:create --name habit --attributes habit_name:string,userId:integer,streak:integer,week:integer,month:integer
+
+models.habit.belongsTo(models.user)
+      models.habit.hasMany(models.habresponse)
 
 sequelize model:create --name habresponse --attributes userId:integer,date:dateonly,habitId:integer,response:boolean,dailyId:integer
 

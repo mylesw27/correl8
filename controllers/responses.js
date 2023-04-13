@@ -3,6 +3,13 @@ const express = require('express')
 const router = express.Router()
 const db = require('../models')
 const axios = require('axios'); 
+const weatherDecoder = require('../weatherDecoder')
+const streak = require('../streak')
+
+const date = new Date()
+const month = ('0' + (date.getMonth() + 1)).slice(-2)
+const todaysDate = `${date.getFullYear()}-${month}-${date.getDate()}`
+const todaysDateMMDDYYY = `${date.getMonth() + 1}${date.getDate()}${date.getFullYear()}`
 
 router.get('/', async (req, res) => {
     try {const responses = await db.daily.findAll({
@@ -25,10 +32,6 @@ router.get('/new', async (req, res) => {
             userId: res.locals.user.id
         }
         })
-        const date = new Date()
-        const month = ('0' + (date.getMonth() + 1)).slice(-2)
-        const todaysDate = `${date.getFullYear()}-${month}-${date.getDate()}`
-        const todaysDateMMDDYYY = `${date.getMonth() + 1}${date.getDate()}${date.getFullYear()}`
         // Weather data - 2 APIs Mapbox (for long&lat) & Open-Mateo (for weather)
         // First, get user's zip code
         const zip = res.locals.user.zipcode
@@ -41,12 +44,13 @@ router.get('/new', async (req, res) => {
         // send long & lat to Open-Mateo for weather JSON
         const openMateo = `https://api.open-meteo.com/v1/forecast?latitude=${lat}8&longitude=${long}&daily=weathercode&daily=temperature_2m_max&daily=temperature_2m_min&daily=apparent_temperature_max&daily=apparent_temperature_min&daily=sunrise&daily=sunset&daily=precipitation_sum&daily=precipitation_hours&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timeformat=iso8601&past_days=0&forecast_days=7&start_date=${todaysDate}&end_date=${todaysDate}&timezone=America%2FLos_Angeles`
         const weatherData = await axios.get(openMateo)
-        console.log(`🔥🔥🔥🔥🔥🔥${weatherData}`)
+        const weatherCondition = weatherDecoder.decode(weatherData.data.daily.weathercode)
         res.render('responses/new.ejs', {
             habits, 
             todaysDate, 
             todaysDateMMDDYYY, 
-            weatherData: weatherData.data.daily
+            weatherData: weatherData.data.daily,
+            weatherCondition
         })
     } catch(error) {
         console.log(error)
@@ -93,6 +97,8 @@ router.post('/', async (req, res) => {
     let yesHabits = habitArray.map(habit => Number(habit[1]))
     
     foundHabits.forEach( async (taco,i) => {
+        streak.calculateStreak(taco.id, todaysDate)
+        streak.calculateMonth(taco.id, todaysDate)
         if (yesHabits.includes(taco.id)) {
             await db.habresponse.findOrCreate({
                 where: {

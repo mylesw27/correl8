@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   habit.init({
     habit_name: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    streak: DataTypes.INTEGER,
+    week: DataTypes.INTEGER,
+    month: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'habit',

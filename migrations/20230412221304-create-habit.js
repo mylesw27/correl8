@@ -15,6 +15,15 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
+      streak: {
+        type: Sequelize.INTEGER
+      },
+      week: {
+        type: Sequelize.INTEGER
+      },
+      month: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -7,10 +7,12 @@ router.get('/', async (req, res) => {
     const habits = await db.habit.findAll({
         where: {
             userId: res.locals.user.id
-        }
+        }, order: [
+            ['id', 'DESC']
+        ]
     })
     console.log(habits)
-    res.render('habits/index.ejs', {habits})
+    res.render('habits/index.ejs', {habits, user: res.locals.user})
 })
 
 

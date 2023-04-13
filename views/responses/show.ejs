@@ -2,7 +2,10 @@
 
 <h1>Show a past response</h1>
 <p><%= foundDaily.date %></p>
-<% console.log(foundDaily) %>
+<h2>Weather Conditions:</h2>
+<p> <%= foundDaily.weather_conditions %></p>
+<p>High: <%= foundDaily.weather_high %></p>
+<p>Low: <%= foundDaily.weather_low %></p>
 <form method="POST" action="/responses/<%=foundDaily.id%>?_method=PUT">
     <input type="integer" value="<%= foundDaily.id %>" name="id" hidden>
     <!-- date -->

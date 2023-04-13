@@ -1,25 +1,44 @@
 <%- include("../partials/header.ejs") %>
 
-<h1>User's Habits</h1>
 
+<div class="container align-items-center">
+    <h1><%=user.username%>'s Habits</h1>
+    <form method="post" action="/habits">
+        <div class="mb-3">
+            <label for="newHabit">Add a habit:</label>
+            <input type="text" name="habit" id="newHabit" required>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+</div>
 
-<form method="post" action="/habits">
-    <div class="mb-3">
-        <label for="newHabit">Add a habit:</label>
-        <input type="text" name="habit" id="newHabit" required>
-        <button type="submit" class="btn btn-primary">Add</button>
+<div class="justify-content-start container-sm column">
+    <div class="row gx-5">
+        <% habits.forEach(habit => { %>
+            <div class="card m-5">
+                <div class="row align-items-start">
+                    <div class="col-1 align-self-center">
+                        <form method="post" action="/habits/?_method=DELETE">
+                            <input typ="integer" name="habitId" value="<%= habit.id %>" hidden>
+                            <button type="submit" class="btn-close"></button>
+                        </form>
+                    </div>
+                    <div class="col-2 align-self-center">
+                        <div class="card-body"><%= habit.habit_name %></div >
+                    </div>
+                    <div class="col-2 text-center">
+                        <div class="card-body">Current Streak</div>
+                        <div class="card-body"><%= habit.streak %></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="<%=habit.streak%>" aria-valuemin="0" aria-valuemax="7">
+                            <div class="progress-bar" style="width: <%= habit.streak %>%"></div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
     </div>
-</form>
-
-<ul>
-    <% habits.forEach(habit => { %>
-        <li><%= habit.habit_name %>
-            <form method="post" action="/habits/?_method=DELETE">
-                <input typ="integer" name="habitId" value="<%= habit.id %>" hidden>
-                <button type="submit" class="btn-close"></button>
-            </form>
-        </li>
-    <% }) %>
-</ul>
+</div>
 
 <%- include("../partials/footer.ejs") %>

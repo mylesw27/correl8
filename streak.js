@@ -1,7 +1,7 @@
 const db = require('./models')
 const dateCount = require('./dateCount')
 
-async function calculateStreak(taco, todaysDate) {
+module.exports.calculateStreak = async (taco, todaysDate) => {
     try {
         // Get all habit responses that are true
         const findHabresponse = await db.habresponse.findAll({
@@ -44,4 +44,37 @@ async function calculateStreak(taco, todaysDate) {
     }
 }
 
-calculateStreak(1, '2023-04-12')
+module.exports.calculateMonth = async (taco, todaysDate) => {
+    try {
+        // Get all habit responses that are true
+        const findHabresponse = await db.habresponse.findAll({
+            where: {
+                habitId: taco,
+                response: true
+            }, order: [
+                ['date', 'DESC']
+            ]
+        })
+        // convert dates to integers using dateCount and store them in an array
+        const responseDateArray = findHabresponse.map(response => {
+            return dateCount.dateCountInt(response.date)
+        })
+        // Get today's datecount
+        const todaysDateCount = dateCount.dateCountInt(todaysDate)
+
+        // for each function that calculates each true habit if it is > (today -30) if so, increment
+        let monthCount = 0
+        responseDateArray.forEach((habitDate) => {
+            if (habitDate >= todaysDateCount -30) {
+                monthCount ++
+            }
+        })
+        await findHabit.update({
+            month: monthCount
+        })
+
+        
+    } catch(error) {
+        console.log(error)
+    }
+}

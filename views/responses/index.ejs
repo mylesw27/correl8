@@ -1,16 +1,29 @@
 <%- include("../partials/header.ejs") %>
+<div class="container justify-content-center">
+    <h1>Show all responses</h1>
 
-<h1>Show all responses</h1>
+    <p><a href='/responses/new'>Log new response</a></p>
+    <p><a href='/responses/show'>View a past response</a></p>
+</div>
 
-<p><a href='/responses/new'>Log new response</a></p>
-<p><a href='/responses/show'>View a past response</a></p>
-
-<ul>
-    <% responses.forEach(response => { %>
-        <li><a href="/responses/<%= response.id %>"><%= response.date %></a>
-        </li>
-    <% }) %>
-</ul>
+<div class="container justify-content-start" style="width: 100%;">
+    <div class="align-items-center justify-content-center container-sm row" style="width: 100%;">
+            <% responses.forEach(response => { %>
+                <div class="m-3" style="width: 15rem; height: 10rem;">
+                <a href="/responses/<%= response.id %>" class="text-decoration-none icon-link icon-link-hover">
+                    <div class="card align-items-center shadow-sm" style="width: 15rem; height: 10rem;">
+                            <div class="row align-items-center m-1">
+                                <!-- <div class="align-self-center"> -->
+                                    <p class="card-body">Overall: <%= response.rating %></p >
+                                    <p class="card-title"><%= response.date %></p >
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+    </div>
+</div>
 
 
 <%- include("../partials/footer.ejs") %>

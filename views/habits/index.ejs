@@ -24,20 +24,23 @@
                         </form>
                     </div>
                     <div class="col-2 align-self-center">
-                        <div class="card-body"><%= habit.habit_name %></div >
+                        <h2 class="card-title"><%= habit.habit_name %></h2 >
                     </div>
                     <div class="col-2 text-center">
                         <div class="card-body">Current Streak</div>
                         <div class="card-body"><%= habit.streak %></div>
                     </div>
                     <div class="col-6 align-items-center"> 
+                        <div class="card-body">Past 7 Days:</div>
                         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="<%=habit.week%>" aria-valuemin="0" aria-valuemax="30" style="height: 30px">
-                            <div class="progress-bar" style="width: <%= ((habit.week)/7)*100 %>%"><%= habit.month %> times this week</div>
+                            <div class="progress-bar" style="width: <%= ((habit.week)/7)*100 %>%"><%= habit.week %> times this week</div>
                         </div>
                         <div style="height: 20px"></div>
-                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="<%=habit.month%>" aria-valuemin="0" aria-valuemax="30" style="height: 30px">
+                        <div class="card-body margin-0">Past 30 Days:</div>
+                        <div class="progress mt-0" role="progressbar" aria-label="Basic example" aria-valuenow="<%=habit.month%>" aria-valuemin="0" aria-valuemax="30" style="height: 30px">
                             <div class="progress-bar" style="width: <%= ((habit.month)/30)*100 %>%"><%= habit.month %> times this month</div>
                         </div>
+                        <div style="height: 20px"></div>
                     </div>
                 </div>
             </div>

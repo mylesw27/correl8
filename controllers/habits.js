@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         where: {
             userId: res.locals.user.id
         }, order: [
-            ['id', 'DESC']
+            ['id']
         ]
     })
     console.log(habits)

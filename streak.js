@@ -21,13 +21,12 @@ module.exports.calculateStreak = async (taco, todaysDate) => {
         const todaysDateCount = dateCount.dateCountInt(todaysDate)
         console.log(todaysDateCount, responseDateArray[0])
         if (todaysDateCount === responseDateArray[0] || (todaysDateCount - 1)=== responseDateArray[0]) {
-            streak ++
+            responseDateArray.forEach((day, i) => {
+                if (day === (responseDateArray[i+1] + 1)) {
+                    streak ++
+                } 
+            })
         }
-        responseDateArray.forEach((day, i) => {
-            if (day === (responseDateArray[i+1] + 1)) {
-                streak ++
-            } 
-        })
         // update habit.current_streak with that amount 
         const findHabit = await db.habit.findOne ({
             where: {
@@ -67,11 +66,12 @@ module.exports.calculateCounts = async (taco, todaysDate) => {
             if (habitDate > todaysDateCount -7) {
                 monthCount ++
                 weekCount ++
-                console.log(habitDate, todaysDateCount)
-            } else if (habitDate > todaysDateCount -30) {
+                console.log(habitDate, todaysDateCount -8)
+            } else if (habitDate >= todaysDateCount -30) {
                 monthCount ++
             }
         })
+        console.log(taco + ' month: ' + monthCount + ", week: " + weekCount)
         const findHabit = await db.habit.findOne ({
             where: {
                 id: taco

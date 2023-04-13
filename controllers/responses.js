@@ -97,8 +97,6 @@ router.post('/', async (req, res) => {
     let yesHabits = habitArray.map(habit => Number(habit[1]))
     
     foundHabits.forEach( async (taco,i) => {
-        streak.calculateStreak(taco.id, todaysDate)
-        streak.calculateCounts(taco.id, todaysDate)
         if (yesHabits.includes(taco.id)) {
             await db.habresponse.findOrCreate({
                 where: {
@@ -123,6 +121,8 @@ router.post('/', async (req, res) => {
             })
 
         }
+        streak.calculateStreak(taco.id, todaysDate)
+        streak.calculateCounts(taco.id, todaysDate)
     })
     
     res.redirect ('/responses')
@@ -187,7 +187,7 @@ router.put('/:id', async (req, res) => {
         })
         let yesHabits = habitArray.map(habit => Number(habit[1]))
         
-        foundHabits.forEach( async (taco,i) => {
+        foundHabits.forEach( async (taco,i) => { 
             const findHabresponse = await db.habresponse.findOrCreate({
                 where: {
                     userId: res.locals.user.id,
@@ -206,6 +206,8 @@ router.put('/:id', async (req, res) => {
                 })
 
             }
+            streak.calculateStreak(taco.id, todaysDate)
+            streak.calculateCounts(taco.id, todaysDate)
         })
     } catch(error) {
         console.log(error)

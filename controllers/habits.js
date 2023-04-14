@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
             ['id']
         ]
     })
-    console.log(habits)
     res.render('habits/index.ejs', {habits, user: res.locals.user})
 })
 

@@ -24,9 +24,6 @@ router.get('/', async (req, res) => {
                 model: db.habit
             }
         })
-        // habitresponses.forEach(response => {
-        //     console.log(response.habit.habit_name)
-        // })
         let i = 0
         res.render('responses/index.ejs', {responses, habitresponses, i})
     } catch (error) {

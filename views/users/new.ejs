@@ -1,15 +1,41 @@
 <%- include("../partials/header.ejs") %>
 
-<h2>Sign up for an account!</h2>
+<div class="row">
+    <div class="container column text-center mt-5">
+        <h2>Registration</h2>
+    </div>
+</div>
 
-<form method="POST" action="/users">
-    <label for="email">email:</label>
-    <input type="email" name="email" id="email" required/>
 
-    <label for="password">password:</label>
-    <input type="password" name="password" id="password" required />
+<form class="row d-flex justify-content-center g-3" method="POST" action="/users">
+    <div class="col-4 gy-3">
+        <div class="row">
+            <div class="col-6 mt-2">
+                <label for="username" class="form-label">Name</label>
+                <input type="username" class="form-control" name="username" id="username" required />
+            </div>
+            
+            <div class="col-6 mt-2">
+                <label for="zipcode" class="form-label">Zip Code</label>
+                <input type="zipcode" class="form-control" name="zipcode" id="zipcode" required />
+            </div>
+        </div>
+        <div class="col-12 mt-2">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" required/>
+        </div>  
+        
 
-    <button type="submit">Sign Up!</button>
+        <div class="col-12 mt-2">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" required />
+        </div>
+        
+        <div class="col-12 text-center mt-5">
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+    </div>
 </form>
+
 
 <%- include('../partials/footer.ejs') %>

@@ -5,6 +5,7 @@ const db = require('../models')
 const bcrypt = require('bcrypt')
 const cryptoJs = require('crypto-js')
 const methodOverride = require('method-override');
+const { defaults } = require('pg')
 
 router.use(methodOverride('_method'));
 
@@ -20,12 +21,15 @@ router.post('/', async (req, res) => {
         const [newUser, created] = await db.user.findOrCreate({
             where: {
                 email: req.body.email
+            }, defaults: {
+                username: req.body.username,
+                zipcode: req.body.zipcode
             }
         })
         if (!created) {
             // if the user's email returns as found -- don't let them sign up
             // instead, redirect them to the login page
-            res.redirect('users/login?message=Please login to your account to continue 🙈')
+            res.redirect('users/login?message=Please login to your account to continue')
         } else {
             // has the user's password before we add it to the db
             const hashedPassword = bcrypt.hashSync(req.body.password, 12)
@@ -37,7 +41,7 @@ router.post('/', async (req, res) => {
             // set encrypted id as a cookie
             res.cookie('userId', encryptedPk.toString())
             // redirect user
-            res.redirect('/users/profile')
+            res.redirect('/habits')
         }
     } catch (error) {
         console.log(error)
@@ -61,7 +65,7 @@ router.post('/login', async (req, res) => {
                 email: req.body.email
             }
         })
-        const failedLoginMessage = 'Incorrect email or password 🙁'
+        const failedLoginMessage = 'Incorrect email or password'
         if (!foundUser) {
             // if the user's email is not found -- do not let them login
             res.redirect('/users/login?message=' + failedLoginMessage)
@@ -74,7 +78,7 @@ router.post('/login', async (req, res) => {
             // set the encrypted PK as a cookie
             res.cookie('userId', encryptedPk.toString())
             // redirect them to their profile
-            res.redirect('/users/profile')
+            res.redirect('/habits')
         }
     } catch (error) {
         console.log(error)
@@ -89,18 +93,18 @@ router.get('/logout', (req, res) => {
 })
 
 // GET /users/profile -- show authorized users their profile page
-router.get('/profile', (req, res) => {
+router.get('/settings', (req, res) => {
     // if the user come and is not logged in -- they lack authorization
     if(!res.locals.user){
         // redirect them to the login
-        res.redirect('/users/login?message=You are not authorized to view that page. Please authenicate to continue 😎')
+        res.redirect('/users/login?message=You are not authorized to view that page. Please login to continue')
     } else {
         // if they are allowed to be here, show them their profile
-        res.render('users/profile.ejs')
+        res.render('users/settings.ejs')
     }
 })
 
-router.put('/profile', async (req, res) => {
+router.put('/settings', async (req, res) => {
     try{
         const foundUser = await db.user.findOne({
             where: {
@@ -112,7 +116,7 @@ router.put('/profile', async (req, res) => {
             zipcode: req.body.zipcode
         })
         await foundUser.save()
-        res.redirect('/users/profile')  
+        res.redirect('/users/settings')  
     } catch(error) {
         console.log(error)
     }

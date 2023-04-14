@@ -1,19 +1,33 @@
 <%- include("../partials/header.ejs") %>
 
-<h2>Sign in to your account!</h2>
+<div class="row">
+    <div class="container column text-center mt-5">
+        <h2>Sign In</h2>
+        <% if (message) { %>
+            <p><%= message %></p>
+        <% } %>
+    </div>
+</div>
 
-<% if (message) { %>
-    <p><%= message %></p>
-<% } %>
 
-<form method="POST" action="/users/login">
-    <label for="email">email:</label>
-    <input type="email" name="email" id="email" required/>
+<form class="row d-flex justify-content-center g-3" method="POST" action="/users/login">
+    <div class="col-4 gy-3">
+        <div class="row">
+            <div class="col-12 mt-2">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required/>
+            </div>
 
-    <label for="password">password:</label>
-    <input type="password" name="password" id="password" required />
+            <div class="col-12 mt-2">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required />
+            </div>
 
-    <button type="submit">Log in!</button>
+             <div class="col-12 text-center mt-5">
+            <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+        </div>
+    </div>
 </form>
 
 <%- include('../partials/footer.ejs') %>

@@ -1,0 +1,31 @@
+<%- include('../partials/header.ejs') %>
+
+<h1 class="text-center">Update your profile settings</h1>
+
+
+<form class="row d-flex justify-content-center g-3" method="POST" action="/users/settings/?_method=PUT">
+    <div class="col-4 gy-3">
+        <div class="row">
+            <div class="col-6 mt-2">
+                <label for="username" class="form-label">Name</label>
+                <input type="username" class="form-control" name="username" id="username" required value="<%= user.username %>"/>
+            </div>
+            
+            <div class="col-6 mt-2">
+                <label for="zipcode" class="form-label">Zip Code</label>
+                <input type="zipcode" class="form-control" name="zipcode" id="zipcode" required value="<%= user.zipcode %>"/>
+            </div>
+        </div>
+        <div class="col-12 mt-2">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" required value="<%= user.email %>"/>
+        </div>  
+        
+        
+        <div class="col-12 text-center mt-5">
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+    </div>
+</form>
+
+<%- include('../partials/footer.ejs') %>

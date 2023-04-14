@@ -16,7 +16,6 @@ router.get('/new', (req, res) => {
 // POST /users -- CREATE a new user from the form @ GET /users/new
 router.post('/', async (req, res) => {
     try {
-        console.log(req.body)
         //do a find or create with the user's given email
         const [newUser, created] = await db.user.findOrCreate({
             where: {
@@ -25,7 +24,6 @@ router.post('/', async (req, res) => {
         })
         if (!created) {
             // if the user's email returns as found -- don't let them sign up
-            console.log('user account exists')
             // instead, redirect them to the login page
             res.redirect('users/login?message=Please login to your account to continue 🙈')
         } else {
@@ -66,11 +64,9 @@ router.post('/login', async (req, res) => {
         const failedLoginMessage = 'Incorrect email or password 🙁'
         if (!foundUser) {
             // if the user's email is not found -- do not let them login
-            console.log('user not found')
             res.redirect('/users/login?message=' + failedLoginMessage)
         } else if (!bcrypt.compareSync(req.body.password, foundUser.password)) {
             // if the user exists but they have the wrong password -- do not let them login
-            console.log('incorrect password')
             res.redirect('/users/login?message=' + failedLoginMessage)
         } else {
             // if the user exists, they know the right password -- log them in
@@ -88,7 +84,6 @@ router.post('/login', async (req, res) => {
 
 // GET /users/logout -- log out the current user
 router.get('/logout', (req, res) => {
-    console.log('logging user out')
     res.clearCookie('userId')
     res.redirect('/')
 })
@@ -117,7 +112,6 @@ router.put('/profile', async (req, res) => {
             zipcode: req.body.zipcode
         })
         await foundUser.save()
-        await console.log(foundUser)
         res.redirect('/users/profile')  
     } catch(error) {
         console.log(error)

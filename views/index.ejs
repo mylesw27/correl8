@@ -16,17 +16,26 @@
 <img class="container-lg" src="/img/correl8_black.png" alt="correlate" id="logoImg">
 </div>
 
-<div class="container-lg justify-content-between">
-<% if (user) { %>
-    <a href='/users/profile' class="btn btn-primary" role="button">Profile</a>
-    <a href='/users/logout' class="btn btn-primary" role="button">Logout</a>
-    <a href='/habits' class="btn btn-primary" role="button">Habits</a>
-    <a href='/responses' class="btn btn-primary" role="button">Responses</a>
-<% } else { %>
-    <!-- shown when the user is logged out -->
-    <a href='/users/new' class="btn btn-primary" role="button">Sign Up</a>
-    <a href='/users/login' class="btn btn-primary" role="button">Sign In</a>
-<% } %>
+<div class="container-lg align-items-center mt-5">
+    <div class="row">
+    <% if (user) { %>
+        <div class="col-4"></div>
+        <a href='/users/profile' class="btn btn-dark col-1 " role="button">Profile</a>
+        <a href='/users/logout' class="btn btn-dark col-1" role="button">Logout</a>
+        <a href='/habits' class="btn btn-dark col-1" role="button">Habits</a>
+        <a href='/responses' class="btn btn-dark col-1" role="button">Responses</a>
+        <div class="col-4"></div>
+    <% } else { %>
+        <!-- shown when the user is logged out -->
+        <div class="col-4"></div>
+        <a href='/users/new' class="btn btn-dark col-1 m-1" role="button">Register</a>
+        <div class="col-2"></div>
+        <a href='/users/login' class="btn btn-dark col-1 m-1" role="button">Login</a>
+        <div class="col-4"></div>
+    <% } %>
+    </div>
 </div>
+
+
 
 <%- include("./partials/footer.ejs") %>

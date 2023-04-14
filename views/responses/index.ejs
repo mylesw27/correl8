@@ -9,13 +9,20 @@
 <div class="container justify-content-start" style="width: 100%;">
     <div class="align-items-center justify-content-center container-sm row" style="width: 100%;">
             <% responses.forEach(response => { %>
-                <div class="m-3" style="width: 15rem; height: 10rem;">
+                <div class="m-3" style="width: 15rem; height: 15rem;">
                 <a href="/responses/<%= response.id %>" class="text-decoration-none icon-link icon-link-hover">
-                    <div class="card align-items-center shadow-sm" style="width: 15rem; height: 10rem;">
+                    <div class="card align-items-center shadow-sm customcard" style="width: 15rem; height: 15rem;">
                             <div class="row align-items-center m-1">
                                 <!-- <div class="align-self-center"> -->
                                     <p class="card-body">Overall: <%= response.rating %></p >
                                     <p class="card-title"><%= response.date %></p >
+                                    <div class="container row"></div>    
+                                    <%  habitresponses.forEach(habitresponse => {%>
+                                        <!-- if habitresponse = response.date include add a list item where li is habitresponse.habit.habit_name -->
+                                       <% if (habitresponse.date == response.date && habitresponse.dailyId == response.id && habitresponse.response && habitresponse.habit != null) { %>
+                                            <p class="badge rounded-pill text-bg-primary" style="width: auto;"> <%= habitresponse.habit.habit_name %> </p>
+                                        <% } %>
+                                    <% }) %>
                                 <!-- </div> -->
                             </div>
                         </div>

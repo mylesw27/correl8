@@ -19,7 +19,15 @@ router.get('/', async (req, res) => {
                 ['date', 'DESC']
             ]
         })
-        res.render('responses/index.ejs', {responses})
+        const habitresponses = await db.habresponse.findAll({
+            include: {
+                model: db.habit
+            }
+        })
+        // habitresponses.forEach(response => {
+        //     console.log(response.habit.habit_name)
+        // })
+        res.render('responses/index.ejs', {responses, habitresponses})
     } catch (error) {
         console.log(error)
     }

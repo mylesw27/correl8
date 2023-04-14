@@ -2,14 +2,20 @@
 
 
 <div class="container align-items-center">
-    <h1>Your Habits</h1>
+    <div class="row">
+    <h1 class="">Your Habits</h1>
     <form method="post" action="/habits">
-        <div class="mb-3">
-            <label for="newHabit">Add a habit:</label>
-            <input type="text" name="habit" id="newHabit" required>
-            <button type="submit" class="btn btn-primary">Add</button>
+        <div class="mb-3 row">
+            <label for="newHabit" class="form-label ">Add a habit:</label>
+            <div class="col-4">
+            <input type="text" class="form-control" name="habit" id="newHabit" required>
+            </div>
+            <div class="col-2 align-items-end">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
         </div>
     </form>
+</div>
 </div>
 
 <div class="justify-content-start container-sm column">
@@ -19,7 +25,7 @@
                 <div class="row align-items-center">
                     <div class="col-1 align-self-center">
                         <form method="post" action="/habits/?_method=DELETE">
-                            <input typ="integer" name="habitId" value="<%= habit.id %>" hidden>
+                            <input type="integer" name="habitId" value="<%= habit.id %>" hidden>
                             <button type="submit" class="btn-close"></button>
                         </form>
                     </div>

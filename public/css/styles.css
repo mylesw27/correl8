@@ -7,10 +7,44 @@ a:link {
     align-items: center;
 }
 
+.response-star-icon {
+    height: 30px;
+}
+
+.response-star-solid {
+    height: 30px;
+    display: none;
+}
+
+.response-face-icon {
+    height: 30px;
+    display: block;
+}
+
+.response-face-solid {
+    height: 30px;
+    display: none;
+}
+
+[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
 .face {
     height: 20px;
 }
 
 .card:hover {
     transform: scale(1.05, 1.05);
+}
+
+li {
+    list-style-type: none;
+}
+
+.navbarLinks {
+    color: white !important;
 }

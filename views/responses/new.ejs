@@ -1,50 +1,122 @@
 <%- include("../partials/header.ejs") %>
 
 <div class="container">
-<h1>Create new response</h1>
-<div class="container">
-<h2>Today's Weather Conditions:</h2>
-<p> <%= weatherCondition %></p>
-<p>High: <%= weatherData.temperature_2m_max[0] %></p>
-<p>Low: <%= weatherData.temperature_2m_min[0] %></p>
-</div>
+<h1>New Daily Log</h1>
 
 <form class="row g-3" method="post" action="/responses">
-    <!-- date -->
-    <div>
-        <input type="date" value="<%= todaysDate %>" name="date" id="date" >
-    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-6">
+            <!-- date -->
+                <div class="mt-5">
+                    <label for="date" class="form-label">Date:</label>
+                    <input type="date" value="<%= todaysDate %>" name="date" id="date" >
+                </div>
+                
+                
+                <!-- rating -->
+                <div class="column m-3">
+                    <h4>How was your day?</h4>
+                    <label for="rating1">
+                        <input type="radio" id="rating1" name="rating" value="1">
+                        <img src="/img/star_outline.svg" class="response-star-icon" id="starOutline1" value="1">
+                        <img src="/img/star_solid.svg" class="response-star-solid" id="starSolid1" value="1">
+                    </label>
+                    <label for="rating2">
+                        <input type="radio" id="rating2" name="rating" value="2">
+                        <img src="/img/star_outline.svg" class="response-star-icon" id="starOutline2" value="2">
+                        <img src="/img/star_solid.svg" class="response-star-solid" id="starSolid2" value="2">
+                    </label>
+                    <label for="rating3">
+                        <input type="radio" id="rating3" name="rating" value="3">
+                        <img src="/img/star_outline.svg" class="response-star-icon" id="starOutline3" value="3">
+                        <img src="/img/star_solid.svg" class="response-star-solid" id="starSolid3" value="3">
+                    </label>
+                    <label for="rating4">
+                        <input type="radio" id="rating4" name="rating" value="4">
+                        <img src="/img/star_outline.svg" class="response-star-icon" id="starOutline4" value="4">
+                        <img src="/img/star_solid.svg" class="response-star-solid" id="starSolid4" value="4">
+                    </label>
+                    <label for="rating5">
+                        <input type="radio" id="rating5" name="rating" value="5">
+                        <img src="/img/star_outline.svg" class="response-star-icon" id="starOutline5" value="5">
+                        <img src="/img/star_solid.svg" class="response-star-solid" id="starSolid5" value="5">
+                    </label>
+                </div>
+                
+                <!-- bed -->
+                <div class="row">
+                    <div class="col mt-3">
+                        <label for="bed" class="form-label">Went to bed at:</label>
+                        <input type="time" id="bed" name="bed" value="21:00">
+                    </div>
+                    
+                    <!-- woke_up -->
+                    <div class="col mt-3">
+                        <label for="woke_up" class="form-label">Woke up at:</label>
+                        <input type="time" id="woke_up" name="woke_up" value="07:00">
+                    </div>  
+                </div>
+             </div>
+            
+            <div class="container col-6 text-end">
+                <h2>Today's Weather Conditions:</h2>
+                <p> <%= weatherCondition %></p>
+                <p>High: <%= weatherData.temperature_2m_max[0] %></p>
+                <p>Low: <%= weatherData.temperature_2m_min[0] %></p>
+                <!-- weather_conditions -->
+                <input type="text" value="<%= weatherCondition %>" name="weather_conditions" hidden>
+                <!-- weather_high -->
+                <input type="integer" value="<%= Math.round(weatherData.temperature_2m_max[0]) %>" name="weather_high" hidden>
+                <!-- weather_low -->
+                <input type="integer" value="<%= Math.round(weatherData.temperature_2m_min[0]) %>" name="weather_low" hidden>
+            </div>
+        </div>
+        <div class="row align-items-between"></div>
+            <!-- mood_AM -->
+            <div class="col-6">
+                <label class="form-label">Morning Mood</label>
+                <div class="col-3"></div>
+                <label for="moodAmPositive">
+                    <input type="radio" id="moodAmPositive" name="mood_am" value="Positive">
+                    <img src="/img/face_smile.png" class="response-face-icon" id="faceOutlineAmPositive">
+                    <img src="/img/face_smile_green.png" class="response-face-solid" id="faceSolidAmPositive">
+                </label>
+                <label for="moodAmNeutral">
+                    <input type="radio" id="moodAmNeutral" name="mood_am" value="Neutral">
+                    <img src="/img/face_neutral.png" class="response-face-icon" id="faceOutlineAmNeutral">
+                    <img src="/img/face_neutral_yellow.png" class="response-face-solid" id="faceSolidAmNeutral">
+                </label>
+                <label for="moodAmNegative">
+                    <input type="radio" id="moodAmNegative" name="mood_am" value="Negative">
+                    <img src="/img/face_frown.png" class="response-face-icon" id="faceOutlineAmNegative">
+                    <img src="/img/face_frown_red.png" class="response-face-solid" id="faceSolidAmNegative">
+                </label>
+            </div>
+            
+            <!-- mood_PM -->
+            <div class="col-6">
+            <label class="form-label">Evening Mood</label>
+            <div class="col-3"></div>
+            <label for="moodPmPositive">
+                <input type="radio" id="moodPmPositive" name="mood_pm" value="Positive">
+                <img src="/img/face_smile.png" class="response-face-icon" id="faceOutlinePmPositive">
+                <img src="/img/face_smile_green.png" class="response-face-solid" id="faceSolidPmPositive">
+            </label>
+            <label for="moodPmNeutral">
+                <input type="radio" id="moodPmNeutral" name="mood_pm" value="Neutral">
+                <img src="/img/face_neutral.png" class="response-face-icon" id="faceOutlinePmNeutral">
+                <img src="/img/face_neutral_yellow.png" class="response-face-solid" id="faceSolidPmNeutral">
+            </label>
+            <label for="moodPmNegative">
+                <input type="radio" id="moodPmNegative" name="mood_pm" value="Negative">
+                <img src="/img/face_frown.png" class="response-face-icon" id="faceOutlinePmNegative">
+                <img src="/img/face_frown_red.png" class="response-face-solid" id="faceSolidPmNegative">
+            </label>
+            </div>
+        </div>
 
-    <!-- weather_conditions -->
-    <input type="text" value="<%= weatherCondition %>" name="weather_conditions" hidden>
-    
-    <!-- weather_high -->
-    <input type="integer" value="<%= Math.round(weatherData.temperature_2m_max[0]) %>" name="weather_high" hidden>
-    <!-- weather_low -->
-    <input type="integer" value="<%= Math.round(weatherData.temperature_2m_min[0]) %>" name="weather_low" hidden>
 
-    <!-- rating -->
-    <label for="rating" class="form-label">How was your day?</label>
-    <input type="range" class="form-range" min="1" max="5" id="rating" name="rating">
-
-    <!-- mood_AM -->
-    <label for="mood_AM" class="form-label">Morning Mood</label>
-    <select class="form-select" name="mood_AM">
-        <option selected></option>
-        <option value="Positive">Positive</option>
-        <option value="Neutral">Neutral</option>
-        <option value="Negative">Negative</option>
-    </select>
-
-    <!-- mood_PM -->
-    <label for="mood_PM" class="form-label">Evening Mood</label>
-    <select class="form-select" name="mood_PM">
-        <option selected></option>
-        <option value="Positive">Positive</option>
-        <option value="Neutral">Neutral</option>
-        <option value="Negative">Negative</option>
-    </select>
- 
     <!-- stress -->
     <label for="stress" class="form-label">Stress Level</label>
     <input type="range" class="form-range" min="1" max="10" id="stress" name="stress">
@@ -53,47 +125,55 @@
     <label for="activity" class="form-label">Activity Level</label>
     <input type="range" class="form-range" min="1" max="10" id="activity" name="activity">
 
-    <!-- diet -->
-    <label for="diet" class="form-label">Diet</label>
-    <select class="form-select" name="diet">
-        <option selected></option>
-        <option value="Healthy">Healthy</option>
-        <option value="Fair">Fair</option>
-        <option value="Poor">Poor</option>
-    </select>
+    <div class="row">
+        <!-- diet -->
+        <div class="col-6">
+            <label for="diet" class="form-label">Diet</label>
+            <select class="form-select" name="diet">
+                <option selected></option>
+                <option value="Healthy">Healthy</option>
+                <option value="Fair">Fair</option>
+                <option value="Poor">Poor</option>
+            </select>
+        </div>
 
-    <!-- woke_up -->
-    <label for="woke_up" class="form-label">Woke up at:</label>
-    <input type="time" id="woke_up" name="woke_up" value="07:00">
-    
-    <!-- bed -->
-    <label for="bed" class="form-label">Went to bed at:</label>
-    <input type="time" id="bed" name="bed" value="21:00">
-
-    <!-- water -->
-    <label for="water" class="form-label">Water Intake:</label>
-    <input type="integer" id="water" name="water" value="0">
+        <!-- water -->
+        <div class="col-6">
+            <label for="water" class="form-label">Water Intake:</label>
+            <div class="input-group flex-nowrap">
+                <input type="integer" id="water" class="form-control" name="water" value="0">
+                <span class="input-group-text">Ozs</span>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Habit Responses -->
-    <ul>
+    <h2>Habits</h2>
+    <div class="container d-flex column flex-wrap">
         <% habits.forEach((habit, i) => { %>
-            <li>
+            <div class="m-3">
                 <input type="checkbox" class="btn-check" id="btn-check-outlined<%= i %>" autocomplete="off" name="habit_<%=habit.id%>">
                 <label class="btn btn-outline-primary" for="btn-check-outlined<%= i %>"><%= habit.habit_name %></label>
-            </li>
+            </div>
         <% }) %>
-    </ul>
+    </div>  
 
     <!-- affirmations -->
-    <label for="affirmations" class="form-label">Today's Affirmations:</label>
-    <textarea name="affirmations" id="affirmations"></textarea>
+    <div class="col-6">
+        <label for="affirmations" class="form-label">Today's Affirmations:</label>
+        <textarea name="affirmations" id="affirmations" class="form-control col-8" ></textarea>
+    </div>  
 
     <!-- notes  -->
-    <label for="notes" class="form-label">Today's Notes:</label>
-    <textarea name="notes" id="notes"></textarea>
+    <div class="col-6">
+        <label for="notes" class="form-label">Today's Notes:</label>
+        <textarea name="notes" id="notes" class="form-control col-8" style="width: max;"></textarea>
+    </div>
 
-    <button type="sumbit">Submit</button>
+    <div class="mb-5">
+        <button type="submit" class="btn btn-dark">Submit</button>
+    </div>
 </form>
 </div>
 

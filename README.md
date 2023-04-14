@@ -1,21 +1,24 @@
-# Daily Habit Tracker
+# Correl8 Habit Tracker
 This habit tracker allows you to store information about a user's daily activities, mood and outlook. The intention is to help the user discover links between their daily activities and the impacts on their overall mood and outlook. The app also uses the Mapbox and Open-Mateo APIs to all the app to track weather associated with the user's given location. With enough data, this app has a goal of finding correlation in a user's day to their given responses to mood and outlook. 
+
+
+[Correl8 App link](https://correl8.herokuapp.com/)
 
 ## APIs Used 
 
 ### Mapbox 
 Forward geocoding used to retrieve latitude and longitude of a user's zip code. These coordinates will feed the Open-Mateo API.
-![Mapbox Proof of Concept](./img/mapboxproof.png)\
+![Mapbox Proof of Concept](./public/img/mapboxproof.png)\
 
 
 ### Open-Mateo
 Sending the user's latitude and longitude returns the current weather forecast. This will be used to provide weather data as a supplement to daily responses.  \
-![Open-Mateo Proof of Concept](./img/openmateoproof.png)\
+![Open-Mateo Proof of Concept](./public/img/openmateoproof.png)\
 
 
 ## Entity Relational Diagram
 The app consists of 3 models: Users, Settings and Responses. Users and Settings have a one:one relationship while Users and Responses have a one:many relationship. 
-![Entity Relational Diagram](./ERD.drawio.png)
+![Entity Relational Diagram](./public/ERD.drawio.png)
 
 
 ## RESTful Routing Chart
@@ -47,15 +50,22 @@ The app consists of 3 models: Users, Settings and Responses. Users and Settings 
 
 
 ## Wireframes
-![landing page](./img/landingpage.png)
-![users/new](./img/users_new.png)
-![users/login](./img/users_login.png)
-![users/profile](./img/users_profile.png)
-![users/settings](./img/users/settings.png)
-![habits](./img/habits.png)
-![responses](./img/responses.png)
-![habits/new](./img/responses_new.png) 
-![habits/:id](./img/responses_id.png)
+![landing page](./public/img/landingpage.png)
+![users/new](./public/img/users_new.png)
+![users/login](./public/img/users_login.png)
+![users/profile](./public/img/users_profile.png)
+![users/settings](./public/img/users/settings.png)
+![habits](./public/img/habits.png)
+![responses](./public/img/responses.png)
+![habits/new](./public/img/responses_new.png) 
+![habits/:id](./public/img/responses_id.png)
+
+## Installation Instructions 
+1. Fork and clone this repo
+2. Install all modules using npm install
+3. Sign up and get an API key from the Mapbox API
+4. Create a .env file and store your Mapbox API in a variable named MAP_KEY
+5. Make some habits!
 
 ## User Stories
 As a user, I want to be able to store daily activity data based on my mood and habits. \

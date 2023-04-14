@@ -1,14 +1,19 @@
 <%- include("../partials/header.ejs") %>
 
+<div class="container">
 <h1>Create new response</h1>
+<div class="container">
 <h2>Today's Weather Conditions:</h2>
 <p> <%= weatherCondition %></p>
 <p>High: <%= weatherData.temperature_2m_max[0] %></p>
 <p>Low: <%= weatherData.temperature_2m_min[0] %></p>
+</div>
 
-<form method="post" action="/responses">
+<form class="row g-3" method="post" action="/responses">
     <!-- date -->
-    <input type="date" value="<%= todaysDate %>" name="date" id="date" >
+    <div>
+        <input type="date" value="<%= todaysDate %>" name="date" id="date" >
+    </div>
 
     <!-- weather_conditions -->
     <input type="text" value="<%= weatherCondition %>" name="weather_conditions" hidden>
@@ -90,5 +95,6 @@
 
     <button type="sumbit">Submit</button>
 </form>
+</div>
 
 <%- include("../partials/footer.ejs") %>

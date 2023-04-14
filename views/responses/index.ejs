@@ -1,34 +1,63 @@
 <%- include("../partials/header.ejs") %>
-<div class="container justify-content-center">
-    <h1>Show all responses</h1>
+<div class="row">
+    <div class="container-lg row align-items-center justify-content-center m-3 col-12">
 
-    <p><a href='/responses/new'>Log new response</a></p>
-    <p><a href='/responses/show'>View a past response</a></p>
+            <h1 class="d-flex justify-content-center m-3 col-12">Daily Logs</h1>
+
+            <a role="button" class="btn btn-dark col-12" style="height: 50px; width: 200px;"  href='/responses/new'>Log A new Response</a>
+
+    </div>
 </div>
-
-<div class="container justify-content-start" style="width: 100%;">
-    <div class="align-items-center justify-content-center container-sm row" style="width: 100%;">
-            <% responses.forEach(response => { %>
-                <div class="m-3" style="width: 15rem; height: 15rem;">
-                <a href="/responses/<%= response.id %>" class="text-decoration-none icon-link icon-link-hover">
-                    <div class="card align-items-center shadow-sm customcard" style="width: 15rem; height: 15rem;">
-                            <div class="row align-items-center m-1">
-                                <!-- <div class="align-self-center"> -->
-                                    <p class="card-body">Overall: <%= response.rating %></p >
-                                    <p class="card-title"><%= response.date %></p >
-                                    <div class="container row"></div>    
-                                    <%  habitresponses.forEach(habitresponse => {%>
-                                        <!-- if habitresponse = response.date include add a list item where li is habitresponse.habit.habit_name -->
-                                       <% if (habitresponse.date == response.date && habitresponse.dailyId == response.id && habitresponse.response && habitresponse.habit != null) { %>
-                                            <p class="badge rounded-pill text-bg-primary" style="width: auto;"> <%= habitresponse.habit.habit_name %> </p>
-                                        <% } %>
-                                    <% }) %>
-                                <!-- </div> -->
+<div class="row">
+    <div class="col-2"></div>
+    <div class="container justify-content-start col-9">
+        <div class="align-items-start justify-content-start container-sm row" style="width: 100%;">
+                <% responses.forEach(response => { %>
+                    <div class="m-3" style="width: 15rem; height: 15rem;">
+                    <a href="/responses/<%= response.id %>" class="text-decoration-none icon-link icon-link-hover">
+                        <div class="card align-items-start shadow-sm customcard" style="width: 15rem; height: 15rem;">
+                                <div class="row align-items-start m-1">
+                                    <!-- <div class="align-self-center"> -->
+                                        <div class="card-title"><%= response.date %></div >
+                                        <div class="card-body m-0 pt-0"><% while (i < response.rating) { %>
+                                            <img class="star-icon" src="/img/star_solid.svg"> 
+                                            <% i++ %>
+                                            <% } i = 0%>
+                                        </div >
+                                        <div class="card-body m-0 pt-0 pb-0">Weather: <%= response.weather_conditions %></div>
+                                        <div class="card-body">Average Mood: 
+                                            <% if (response.mood_AM === "Positive") { %>
+                                                <% i ++ %>
+                                            <% } else if (response.mood_AM === "Negative") { %>
+                                                <% i -- %>
+                                            <% } %>
+                                            <% if (response.mood_PM === "Positive") { %>
+                                                <% i ++ %>
+                                            <% } else if (response.mood_PM === "Negative") {%>
+                                                <% i -- %>
+                                            <% } %>
+                                            <% if (i > 0) { %>
+                                                <img class="face" src="/img/face_smile.svg">
+                                            <% } else if (i < 0) { %>
+                                                <img class="face" src="/img/face_frown.svg">
+                                            <% } else { %>
+                                                <img class="face" src="/img/face_neutral.svg">
+                                            <% } %>
+                                        </div>
+                                        <div class="container row"></div>    
+                                        <%  habitresponses.forEach(habitresponse => {%>
+                                            <!-- if habitresponse = response.date include add a list item where li is habitresponse.habit.habit_name -->
+                                        <% if (habitresponse.date == response.date && habitresponse.dailyId == response.id && habitresponse.response && habitresponse.habit != null) { %>
+                                                <p class="badge rounded-pill text-bg-primary" style="width: auto;"> <%= habitresponse.habit.habit_name %> </p>
+                                            <% } %>
+                                        <% }) %>
+                                    <!-- </div> -->
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-            <% }) %>
+                        </a>
+                    </div>
+                <% }) %>
+        </div>
     </div>
 </div>
 

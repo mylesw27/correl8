@@ -2,6 +2,15 @@ a:link {
     text-decoration: none;
 }
 
-.customcard {
-    background-color: black;
+.star-icon {
+    height: 15px;
+    align-items: center;
+}
+
+.face {
+    height: 20px;
+}
+
+.card:hover {
+    transform: scale(1.05, 1.05);
 }

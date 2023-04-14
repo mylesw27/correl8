@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
         // habitresponses.forEach(response => {
         //     console.log(response.habit.habit_name)
         // })
-        res.render('responses/index.ejs', {responses, habitresponses})
+        let i = 0
+        res.render('responses/index.ejs', {responses, habitresponses, i})
     } catch (error) {
         console.log(error)
     }
